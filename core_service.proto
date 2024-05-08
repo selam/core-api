@@ -4,7 +4,7 @@ import "core_search.proto";
 
 package core.schema;
 
-option go_package = "github.com/selam/core-api/schema";
+option go_package = "github.com/selam/core-api";
 
 
 service Core {

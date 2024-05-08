@@ -5,7 +5,7 @@ syntax = "proto3";
 
 package core.schema;
 
-option go_package = "github.com/selam/core/schema";
+option go_package = "github.com/selam/core-api";
 
 
 enum Status {
