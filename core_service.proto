@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "core_search.proto";
+
+package core.schema;
+
+option go_package = "github.com/selam/core-api/schema";
+
+
+service Core {
+    rpc Search(SearchRequest) returns (SearchResponse);
+}  

@@ -1,0 +1,123 @@
+
+
+syntax = "proto3";
+
+
+package core.schema;
+
+option go_package = "github.com/selam/core/schema";
+
+
+enum Status {
+    ok = 0;
+    error = 1;
+}
+
+message Error {
+    string message = 1;
+    int32 code = 2;
+}
+
+message Pax {
+	int32 adults = 1;
+	repeated int32 children = 2;
+	int32 count = 3;
+}
+
+message Date {
+	int32 year = 1;
+	int32 month = 2;
+	int32 day = 3;
+}
+
+message SearchRequest {
+	Date checkin = 1;
+	Date checkout = 2;
+	repeated Pax pax = 3;
+	bool pet = 4;
+	repeated int32 destination = 5;
+	repeated int32 hotelFacilities = 6;
+	repeated int32 roomFacilities = 7;
+	bool is_mobile = 8;
+	string nat = 9;
+    Currency Currency = 10;
+}
+
+
+message Geo {
+    double latitude = 1;
+    double longtitude  = 2;
+    int32 distance = 3;
+}
+enum Currency {
+    EUR = 0;
+    USD = 1;
+    TRY = 2;
+    GBP = 3;
+}
+
+message Price {
+    int32 amount = 2;
+}
+
+message PolicyDates {
+    int32 start = 1;
+    int32 end = 2;
+    int32 percent = 3;
+}
+
+message ProductPolicy {
+    repeated PolicyDates dates = 1;
+}
+
+enum TaxType  {
+    VAT = 0;
+    CITY = 1;
+    OTHER = 2;
+}
+
+message Tax {
+    TaxType type = 1;
+    bool included = 4;
+    int32 amount = 6;
+}
+
+
+message Property {
+    int32 type = 1;
+    int64 attributes = 2;
+    uint32 id = 4;
+}
+
+
+
+message Product {
+    repeated Property properties = 1;
+    repeated int32 roomServices = 2;
+    repeated int32 dailyPrices = 4;
+    Price price = 5;
+    repeated Tax taxes = 6;
+    ProductPolicy policy = 7;
+    repeated int32 serviceAttributes = 8;
+    int32 discount = 9; 
+    string hash = 10;
+}
+
+message Item {
+    uint32 id = 1;
+	string name = 2;
+	string description = 3;
+	repeated int32 images = 4;
+	string address = 5;
+    repeated int32 hotelFacilities = 6;
+    Geo geo = 7;
+    Currency currency = 8;
+    repeated Product products = 9;
+}
+
+message SearchResponse {
+	string txn = 1;
+	Error error = 2;
+	repeated Item results = 3;
+	double duration = 4;
+}
