@@ -98,7 +98,7 @@ message Product {
     Price price = 5;
     repeated Tax taxes = 6;
     ProductPolicy policy = 7;
-    repeated int32 serviceAttributes = 8;
+    repeated uint64 serviceAttributes = 8;
     int32 discount = 9; 
     string hash = 10;
 }
