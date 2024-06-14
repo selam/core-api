@@ -103,17 +103,13 @@ message Product {
     string hash = 10;
 }
 
-message ItemImages {
-    repeated int32 ImageIndex = 1;
-}
-
 
 
 message Item {
     uint32 id = 1;
 	string name = 2;
 	string description = 3;
-	map<uint32, ImageIndex> images = 4;
+	map<uint32, bytes> images = 4;
 	string address = 5;
     repeated int32 hotelFacilities = 6;
     Geo geo = 7;
