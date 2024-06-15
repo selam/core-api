@@ -1,0 +1,40 @@
+#!/bin/bash
+
+echo "Running pre-commit hook..."
+
+# Redirect output to stderr.
+exec 1>&2
+echo "Checking for go generate..."
+# Stash other changes that are not part of the index
+STASH_NAME="pre-commit-$(date +%s)"
+git stash push -q --keep-index --include-untracked -m "$STASH_NAME"
+
+# Run go generate
+echo "Running go generate..."
+go generate ./...
+
+# Check if there are any changes. If so, add them.
+echo "Checking for changes..."
+git status --porcelain | while read -r line; do
+    # Only add files that are either modified or untracked
+    if [[ "$line" =~ ^\ ?M || "$line" =~ ^\?\? ]]; then
+        # Extract the file path
+        FILE=$(echo "$line" | awk '{print $2}')
+        echo "Adding $FILE to commit..."
+        git add "$FILE"
+    fi
+done
+
+# Restore stashed changes
+git stash pop -q
+
+# Check if there are unstaged changes. Warn the user.
+if ! git diff --cached --exit-code --quiet; then
+    echo "Changes have been added to the commit."
+else
+    echo "No changes detected."
+fi
+
+# Exit with zero to allow the commit
+exit 0
+
