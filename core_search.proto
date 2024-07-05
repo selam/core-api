@@ -43,6 +43,7 @@ message SearchRequest {
     Currency Currency = 10;
     repeated uint32 HotelIds = 11;
     bool NoServices = 12;
+    string Language = 13;
 }
 
 
