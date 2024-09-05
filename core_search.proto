@@ -85,11 +85,16 @@ message Tax {
     int32 amount = 6;
 }
 
+message Image {
+    repeated string url = 1;
+}
 
 message Property {
     int32 type = 1;
     int64 attributes = 2;
     uint32 id = 4;
+    map<int16, Image> Images = 5;
+
 }
 
 
